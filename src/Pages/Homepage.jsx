@@ -56,7 +56,7 @@ const Homepage = () => {
                   <h5 className="card-title">{item.glass}</h5>
                   <p className="card-text">{item.info}</p>
                   <Link
-                    to={`/products/${item.id}`}
+                    to={`/product/${item.id}`}
                     className="btn btn-primary cursor"
                   >
                     Details
