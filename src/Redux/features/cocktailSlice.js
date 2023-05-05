@@ -22,6 +22,17 @@ export const fetchSingleCocktail = createAsyncThunk(
   }
 );
 
+// to search cocktails from search bar at top
+
+export const fetchSearchCocktails = createAsyncThunk(
+  "cocktails/fetchSearchCocktails",
+  async ({ searchText }) => {
+    return fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`
+    ).then((res) => res.json());
+  }
+);
+
 const initialState = {
   cocktails: [],
   cocktail: [],
@@ -53,6 +64,19 @@ const extraReducers = {
     state.cocktail = action.payload.drinks;
   },
   [fetchSingleCocktail.rejected]: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
+
+  // for search cocktail
+  [fetchSearchCocktails.pending]: (state) => {
+    state.loading = true;
+  },
+  [fetchSearchCocktails.fulfilled]: (state, action) => {
+    state.loading = false;
+    state.cocktails = action.payload.drinks;
+  },
+  [fetchSearchCocktails.rejected]: (state, action) => {
     state.loading = false;
     state.error = action.payload;
   },
