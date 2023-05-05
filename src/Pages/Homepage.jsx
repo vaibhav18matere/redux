@@ -39,6 +39,15 @@ const Homepage = () => {
   if (loading) {
     return <Spinner />;
   }
+
+  if (!cocktails) {
+    return (
+      <>
+        <h2>No cocktails found with this name</h2>
+      </>
+    );
+  }
+
   if (error) {
     return <p>{error.message}</p>;
   }
